@@ -1,1 +1,1 @@
-web: gunicorn birthday_site.wsgi
+web: gunicorn birthday_project.wsgi
