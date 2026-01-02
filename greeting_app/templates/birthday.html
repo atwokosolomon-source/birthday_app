@@ -1,0 +1,194 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- VERY IMPORTANT FOR MOBILE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday 🎉</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffebee;
+        }
+        
+        button{
+            background-color: #45a25b;
+            column-rule: white;
+            padding: 10px 20px;
+            border:none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bolder;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+
+        h1 {
+            color: #e91e63;
+            margin-bottom: 15px;
+        }
+
+        /* MAIN LAYOUT */
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* IMAGE */
+        .image-box img {
+            width: 300px;
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            padding: 20px;
+;
+        }
+
+        /* FORM BOX */
+        .form-box {
+            background-color: pink;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+     .page-title {
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #d81b60;
+        margin-top: 50px;
+        margin-bottom: 10px;
+}
+
+
+
+        /* BALLOONS */
+        .balloon {
+            position: fixed;
+            bottom: -100px;
+            font-size: 5em;
+            animation: floatUp 6s linear infinite;
+        }
+
+        .balloon:nth-child(1){ left: 20%; animation-delay: 0s; }
+        .balloon:nth-child(2){ left: 40%; animation-delay: 1s; }
+        .balloon:nth-child(3){ left: 60%; animation-delay: 2s; }
+        .balloon:nth-child(4){ left: 80%; animation-delay: 3s; }
+        .balloon:nth-child(5){ left: 100%; animation-delay: 4s; }
+
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-120vh); opacity: 0; }
+        }
+
+        /* 📱 MOBILE FIX */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .page-title {
+                font-size: 1.6em;
+                padding: 0 10px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+<div class="page-title">
+    On this special day, remember To choose yourself
+</div>    
+
+<div class="container">
+
+    <!-- IMAGE -->
+    <div class="image-box">
+        <img src="{% static 'birthday_app/image/birthday_picture.jpg' %}" width="350">
+    </div>
+
+    <!-- FORM + MUSIC -->
+    <div class="form-box">
+        <h1>{{ greeting }}</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label>Enter your name</label>
+            <input type="text" name="name" required>
+            <button type="submit">Celebrate 🎂</button>
+        </form>
+
+        {% if show_effects %}
+            <audio controls autoplay>
+                <source src="{% static 'birthday_app/sound/Sia.mp3' %}" type="audio/mpeg">
+            </audio>
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- BALLOONS AFTER SUBMIT -->
+{% if show_effects %}
+    <div class="balloon">🎈</div>
+    <div class="balloon">🎈</div>
+    <div class="balloon">🎈</div>
+    <div class="balloon">🎈</div>
+    <div class="balloon">🎈</div>
+{% endif %}
+
+</body>
+</html>
